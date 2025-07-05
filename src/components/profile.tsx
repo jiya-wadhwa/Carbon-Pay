@@ -1,19 +1,30 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useApp } from "@/hooks/use-app";
 import { currentUser } from "@/data/mock-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Leaf, Trophy } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Leaf, Trophy, Moon, Sun, Settings } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Switch } from "@/components/ui/switch";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Label } from "@/components/ui/label";
 
 export default function Profile() {
   const { userPoints } = useApp();
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="grid gap-6">
       <div className="flex flex-col gap-1">
           <h2 className="font-headline text-3xl font-bold tracking-tight">Your Eco-Profile</h2>
-          <p className="text-muted-foreground">Here's a summary of your green journey.</p>
+          <p className="text-muted-foreground">Here's a summary of your green journey and settings.</p>
       </div>
       <Card>
         <CardContent className="pt-6 flex flex-col items-center gap-4 text-center">
@@ -54,6 +65,37 @@ export default function Profile() {
           </CardContent>
         </Card>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-xl"><Settings className="h-5 w-5" /> App Settings</CardTitle>
+          <CardDescription>Manage your preferences for the app.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {mounted ? (
+            <div className="flex items-center justify-between rounded-lg border p-3">
+              <Label htmlFor="theme-switch" className="flex items-center gap-3 font-medium cursor-pointer">
+                {resolvedTheme === 'dark' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+                <span>Dark Mode</span>
+              </Label>
+              <Switch
+                  id="theme-switch"
+                  checked={resolvedTheme === "dark"}
+                  onCheckedChange={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                  aria-label="Toggle theme"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center justify-between rounded-lg border p-3">
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-6 w-6 rounded-full" />
+                <Skeleton className="h-5 w-24" />
+              </div>
+              <Skeleton className="h-6 w-11" />
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
