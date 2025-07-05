@@ -52,12 +52,12 @@ export const currentUser: User = {
 };
 
 export const leaderboardData: User[] = [
-  { id: 1, name: "Elena V.", avatar: "https://placehold.co/100x100.png", points: 4820, rank: 1 },
-  { id: 2, name: "Marcus R.", avatar: "https://placehold.co/100x100.png", points: 4510, rank: 2 },
-  { id: 3, name: "Aisha K.", avatar: "https://placehold.co/100x100.png", points: 3980, rank: 3 },
-  { id: 4, name: "David L.", avatar: "https://placehold.co/100x100.png", points: 2130, rank: 4 },
+  { id: 1, name: "Priya Sharma", avatar: "https://placehold.co/100x100.png", points: 4820, rank: 1 },
+  { id: 2, name: "Rohan Patel", avatar: "https://placehold.co/100x100.png", points: 4510, rank: 2 },
+  { id: 3, name: "Anika Gupta", avatar: "https://placehold.co/100x100.png", points: 3980, rank: 3 },
+  { id: 4, name: "Vikram Singh", avatar: "https://placehold.co/100x100.png", points: 2130, rank: 4 },
   currentUser,
-  { id: 6, name: "Sophie C.", avatar: "https://placehold.co/100x100.png", points: 980, rank: 6 },
+  { id: 6, name: "Isha Kumar", avatar: "https://placehold.co/100x100.png", points: 980, rank: 6 },
 ];
 
 export const rewards: Reward[] = [
