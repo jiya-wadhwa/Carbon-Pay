@@ -8,9 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Upload, Sparkles, Footprints, IndianRupee, ShoppingCart, Info } from "lucide-react";
+import { Upload, Sparkles, Footprints, IndianRupee, ShoppingCart, Info, Leaf } from "lucide-react";
 import { analyzeBill, AnalyzeBillOutput } from "@/ai/flows/analyze-bill";
 import { useToast } from "@/hooks/use-toast";
+import { useApp } from "@/hooks/use-app";
+import { Separator } from "@/components/ui/separator";
 
 export default function BillUpload() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -19,6 +21,7 @@ export default function BillUpload() {
     const [analysisResult, setAnalysisResult] = useState<AnalyzeBillOutput | null>(null);
     const [error, setError] = useState<string | null>(null);
     const { toast } = useToast();
+    const { setUserPoints } = useApp();
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -57,6 +60,30 @@ export default function BillUpload() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleSelectAlternative = (carbonKg: number) => {
+        // Generous points for choosing a greener option after analyzing a whole bill
+        const pointsMultiplier = 10;
+        const pointsEarned = Math.round(carbonKg * pointsMultiplier);
+
+        setUserPoints(current => current + pointsEarned);
+        toast({
+            title: "Eco-Choice Made!",
+            description: (
+                <div className="flex items-center gap-2">
+                    <Leaf className="h-5 w-5 text-primary" />
+                    <span>You've earned {pointsEarned} points!</span>
+                </div>
+            ),
+            variant: "default",
+            className: "bg-primary/10 border-primary text-primary-foreground",
+        });
+
+        // Reset the view after claiming points
+        setAnalysisResult(null);
+        setPreviewUrl(null);
+        setSelectedFile(null);
     };
 
     return (
@@ -98,7 +125,7 @@ export default function BillUpload() {
                 </Alert>
             )}
 
-            {analysisResult && <AnalysisResult result={analysisResult} />}
+            {analysisResult && <AnalysisResult result={analysisResult} onSelectAlternative={handleSelectAlternative} />}
         </div>
     );
 }
@@ -138,51 +165,78 @@ function AnalysisSkeleton() {
     )
 }
 
-function AnalysisResult({ result }: { result: AnalyzeBillOutput }) {
+function AnalysisResult({ result, onSelectAlternative }: { result: AnalyzeBillOutput; onSelectAlternative: (carbonKg: number) => void; }) {
     return (
-        <Card className="bg-primary/5 border-primary/20">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2 font-headline">
-                    <Sparkles className="h-5 w-5 text-primary" /> Analysis Complete
-                </CardTitle>
-                <CardDescription>
-                    Here's the carbon footprint breakdown for your purchase from <span className="font-semibold">{result.vendorName}</span>.
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
-                    <div className="bg-background/50 p-4 rounded-lg">
-                        <Footprints className="h-8 w-8 text-primary mx-auto mb-2" />
-                        <p className="text-3xl font-bold font-mono text-primary">{result.carbonFootprintKg.toFixed(2)}</p>
-                        <p className="text-sm text-muted-foreground">kg CO₂e</p>
+        <div className="space-y-6">
+            <Card className="bg-primary/5 border-primary/20">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2 font-headline">
+                        <Sparkles className="h-5 w-5 text-primary" /> Analysis Complete
+                    </CardTitle>
+                    <CardDescription>
+                        Here's the carbon footprint breakdown for your purchase from <span className="font-semibold">{result.vendorName}</span>.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+                        <div className="bg-background/50 p-4 rounded-lg">
+                            <Footprints className="h-8 w-8 text-primary mx-auto mb-2" />
+                            <p className="text-3xl font-bold font-mono text-primary">{result.carbonFootprintKg.toFixed(2)}</p>
+                            <p className="text-sm text-muted-foreground">kg CO₂e</p>
+                        </div>
+                        <div className="bg-background/50 p-4 rounded-lg">
+                            <IndianRupee className="h-8 w-8 text-primary mx-auto mb-2" />
+                            <p className="text-3xl font-bold font-mono text-primary">{result.totalAmount.toLocaleString('en-IN')}</p>
+                            <p className="text-sm text-muted-foreground">Total Spent</p>
+                        </div>
                     </div>
-                    <div className="bg-background/50 p-4 rounded-lg">
-                        <IndianRupee className="h-8 w-8 text-primary mx-auto mb-2" />
-                        <p className="text-3xl font-bold font-mono text-primary">{result.totalAmount.toLocaleString('en-IN')}</p>
-                        <p className="text-sm text-muted-foreground">Total Spent</p>
-                    </div>
-                </div>
 
-                <div>
-                    <h4 className="font-semibold mb-2 flex items-center gap-2">
-                        <ShoppingCart className="h-5 w-5" /> Purchased Items
-                    </h4>
-                    <ul className="list-disc list-inside bg-background/50 p-4 rounded-lg text-muted-foreground space-y-1">
-                        {result.items.map((item, index) => (
-                            <li key={index}><span className="font-medium text-foreground">{item.quantity}x {item.name}</span></li>
+                    <div>
+                        <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <ShoppingCart className="h-5 w-5" /> Purchased Items
+                        </h4>
+                        <ul className="list-disc list-inside bg-background/50 p-4 rounded-lg text-muted-foreground space-y-1">
+                            {result.items.map((item, index) => (
+                                <li key={index}><span className="font-medium text-foreground">{item.quantity}x {item.name}</span></li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 className="font-semibold mb-2">AI Breakdown</h4>
+                        <Alert>
+                            <Info className="h-4 w-4" />
+                            <AlertTitle>{result.comparisonRanking}</AlertTitle>
+                            <AlertDescription>{result.breakdown}</AlertDescription>
+                        </Alert>
+                    </div>
+                </CardContent>
+            </Card>
+
+            {result.suggestions && (
+                <Card className="bg-primary/5">
+                    <CardHeader>
+                        <CardTitle className="font-headline flex items-center gap-2">
+                            <Leaf className="h-5 w-5 text-primary"/> Eco-Friendly Alternatives
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        {result.suggestions.alternatives.map((alt, index) => (
+                            <Alert key={index} className="bg-background">
+                                <Info className="h-4 w-4"/>
+                                <AlertTitle className="font-semibold">{alt}</AlertTitle>
+                                <AlertDescription>
+                                    <Button size="sm" variant="link" className="p-0 h-auto mt-2" onClick={() => onSelectAlternative(result.carbonFootprintKg)}>
+                                        Choose this & earn points
+                                    </Button>
+                                </AlertDescription>
+                            </Alert>
                         ))}
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 className="font-semibold mb-2">AI Breakdown</h4>
-                    <Alert>
-                        <Info className="h-4 w-4" />
-                        <AlertTitle>{result.comparisonRanking}</AlertTitle>
-                        <AlertDescription>{result.breakdown}</AlertDescription>
-                    </Alert>
-                </div>
-            </CardContent>
-        </Card>
+                        <Separator />
+                        <p className="text-xs text-muted-foreground italic">{result.suggestions.reasoning}</p>
+                    </CardContent>
+                </Card>
+            )}
+        </div>
     );
 }

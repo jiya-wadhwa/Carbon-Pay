@@ -33,6 +33,10 @@ const AnalyzeBillOutputSchema = z.object({
   comparisonRanking: z
     .string()
     .describe('How the entire transaction compares to similar purchases in terms of carbon footprint.'),
+  suggestions: z.object({
+    alternatives: z.array(z.string()).describe('A list of alternative, lower-carbon options for the items on the bill.'),
+    reasoning: z.string().describe('The reasoning behind why the suggested alternatives are lower-carbon.'),
+  }).describe('Suggestions for lower-carbon alternatives for the purchase.'),
 });
 export type AnalyzeBillOutput = z.infer<typeof AnalyzeBillOutputSchema>;
 
@@ -53,10 +57,13 @@ const prompt = ai.definePrompt({
   4. Estimate the total carbon footprint for all items on the receipt in kilograms of CO2.
   5. Provide a breakdown of how you arrived at the total estimate.
   6. Provide a comparison ranking for the entire purchase against similar types of purchases (e.g., "Higher than average for a grocery bill").
+  7. Suggest a list of lower-carbon alternatives for the items on the receipt. If a food item is meat-based (like chicken or lamb), prioritize suggesting popular Indian vegetarian dishes as alternatives.
+  8. Provide reasoning for your suggestions.
 
   Image of the bill: {{media url=photoDataUri}}
 
   Ensure that the carbonFootprintKg and totalAmount are numbers.
+  Format your output as a JSON object with all the required fields, including "suggestions" which contains the "alternatives" array and "reasoning" string.
   `,
 });
 
