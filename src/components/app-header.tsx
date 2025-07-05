@@ -13,6 +13,7 @@ const viewTitles: { [key: string]: string } = {
   leaderboard: "Leaderboard",
   rewards: "Rewards",
   "bill-upload": "Upload Bill",
+  profile: "Profile",
 };
 
 export default function AppHeader() {
