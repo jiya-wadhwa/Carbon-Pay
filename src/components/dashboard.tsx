@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useApp } from "@/hooks/use-app";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,14 +18,29 @@ const typeIcons = {
   other: <div className="h-6 w-6" />,
 };
 
+const motivationalMessages = [
+  "What's the move today? Let's make it a green one.",
+  "Slay your carbon goals. Every small choice is a major win.",
+  "Vibe check: your eco-friendly choices are on point. Keep it up!",
+  "Ready to be an eco-warrior? Analyze your footprint and level up.",
+  "Spill the tea: how low did your carbon footprint go this week?",
+  "Choosing green is main character energy. We see you.",
+  "Let's make today count for the planet. One good choice at a time.",
+];
+
 export default function Dashboard() {
   const { transactions, setSelectedTransaction } = useApp();
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setMessage(motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]);
+  }, []);
 
   return (
     <div className="grid gap-6">
       <div className="flex flex-col gap-1">
         <h2 className="font-headline text-3xl font-bold tracking-tight">Recent Activity</h2>
-        <p className="text-muted-foreground">Review your recent transactions and their impact.</p>
+        <p className="text-muted-foreground h-5">{message || "Review your recent transactions and their impact."}</p>
       </div>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
         {transactions.map((transaction) => (
