@@ -45,7 +45,7 @@ export const transactions: Transaction[] = [
 
 export const currentUser: User = {
   id: 5,
-  name: "Jiya Vats",
+  name: "Jiya Wadhwa",
   avatar: "https://placehold.co/100x100.png",
   points: 1250,
   rank: 5,
