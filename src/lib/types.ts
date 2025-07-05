@@ -26,3 +26,8 @@ export interface Reward {
 }
 
 export type View = "dashboard" | "leaderboard" | "rewards" | "bill-upload" | "profile";
+
+export interface CarbonSaving {
+    date: string;
+    savedKg: number;
+}

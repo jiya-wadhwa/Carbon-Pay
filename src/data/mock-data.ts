@@ -1,4 +1,4 @@
-import type { Transaction, User, Reward } from "@/lib/types";
+import type { Transaction, User, Reward, CarbonSaving } from "@/lib/types";
 
 export const transactions: Transaction[] = [
   {
@@ -67,7 +67,7 @@ export const rewards: Reward[] = [
     description: "Get 25% off on your next purchase of ethnic and sustainable wear.",
     points: 2500,
     brand: "Fabindia",
-    logoUrl: "https://placehold.co/400x200.png",
+    logoUrl: "/home/user/studio/src/data/images/fab india.jpeg",
     logoHint: "clothing brand",
   },
   {
@@ -76,7 +76,7 @@ export const rewards: Reward[] = [
     description: "Enjoy a complimentary Classic Masala Dosa on your next visit.",
     points: 1200,
     brand: "Sagar Ratna",
-    logoUrl: "https://placehold.co/400x200.png",
+    logoUrl: "/home/user/studio/src/data/images/sagarratna.jpeg",
     logoHint: "restaurant logo",
   },
   {
@@ -85,7 +85,7 @@ export const rewards: Reward[] = [
     description: "Redeem a ₹500 voucher on hand-spun and hand-woven Khadi products.",
     points: 2000,
     brand: "Khadi India",
-    logoUrl: "https://placehold.co/400x200.png",
+    logoUrl: "/home/user/studio/src/data/images/khadi india.png",
     logoHint: "government logo",
   },
     {
@@ -94,7 +94,16 @@ export const rewards: Reward[] = [
     description: "A special hamper of delicious, traditional Indian sweets.",
     points: 3000,
     brand: "Haldiram's",
-    logoUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACgCAMAAADs/S1bAAAAaVBMVEX/AAD/zDP/yC3/xyf/xiT/wSD/46v/25X/vRv/vBn/uRX/9tz/7s7/6cL/5rj/1or/0n3/uhi/tA3DrgD/vhr/uBT/zTj/xyj/wR3+uAvoqnHoq23lpmbWln3SjG3LgV3+tQDvswDyygrgqABfAAAA4ElEQVR42u3QMQEAAAQAMJVS7y84iQ4g6AABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACPgAAEaAAE1gAEYgAAAABJRU5ErkJggg==",
+    logoUrl: "/home/user/studio/src/data/images/haldiram.png",
     logoHint: "food brand",
   },
 ];
+
+export const carbonSavingsHistory: CarbonSaving[] = Array.from({ length: 30 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - (29 - i));
+    return {
+        date: date.toISOString().split('T')[0],
+        savedKg: parseFloat((Math.random() * 2 + 0.5).toFixed(2)), // Random saving between 0.5 and 2.5 kg
+    };
+});

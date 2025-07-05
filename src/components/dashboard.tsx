@@ -13,6 +13,7 @@ import {
   Leaf,
 } from "lucide-react";
 import DailyFact from "./daily-fact";
+import CarbonHistoryChart from "./carbon-history-chart";
 
 const typeIcons = {
   travel: <Plane className="h-6 w-6 text-muted-foreground" />,
@@ -77,6 +78,8 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+      <CarbonHistoryChart />
 
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
         {transactions.map((transaction) => (
