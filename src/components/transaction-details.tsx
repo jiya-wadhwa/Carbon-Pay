@@ -11,7 +11,7 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -24,7 +24,7 @@ import {
   suggestLowerCarbonOptions,
   SuggestLowerCarbonOptionsOutput,
 } from "@/ai/flows/suggest-lower-carbon-options";
-import { ArrowRight, Sparkles, X, Leaf, Info } from "lucide-react";
+import { ArrowRight, Sparkles, X, Leaf, Info, Bike } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function TransactionDetails() {
@@ -99,6 +99,13 @@ export default function TransactionDetails() {
     });
     setSelectedTransaction(null);
   }
+  
+  const handleBookRide = () => {
+    toast({
+        title: "Coming Soon!",
+        description: "Integration with local e-bike services is on its way.",
+    });
+  };
 
   const handleClose = () => {
     setSelectedTransaction(null);
@@ -147,6 +154,25 @@ export default function TransactionDetails() {
                         )}
                     </CardContent>
                 </Card>
+                
+                {selectedTransaction.type === 'travel' && !isLoadingFootprint && footprint && (
+                  <Card className="bg-accent/10 border-accent/50">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2 font-headline text-accent">
+                            <Bike className="h-5 w-5"/> Book an Eco-Friendly Ride
+                        </CardTitle>
+                        <CardDescription className="text-accent/80">
+                            Find and book electric bikes or cycles near you for your next trip.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" onClick={handleBookRide}>
+                            Find Nearby E-Bikes & Cycles
+                            <ArrowRight className="ml-2 h-4 w-4"/>
+                        </Button>
+                    </CardContent>
+                  </Card>
+                )}
 
                 {isLoadingSuggestions && (
                     <Card>
