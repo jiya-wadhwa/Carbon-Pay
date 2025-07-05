@@ -12,6 +12,7 @@ import {
   Footprints,
   Leaf,
 } from "lucide-react";
+import DailyFact from "./daily-fact";
 
 const typeIcons = {
   travel: <Plane className="h-6 w-6 text-muted-foreground" />,
@@ -46,6 +47,8 @@ export default function Dashboard() {
         <h2 className="font-headline text-3xl font-bold tracking-tight">Recent Activity</h2>
         <p className="text-muted-foreground h-5">{message || "Review your recent transactions and their impact."}</p>
       </div>
+
+      <DailyFact />
 
       <Card className="bg-primary/5 border-primary/20">
         <CardHeader>
