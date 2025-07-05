@@ -22,6 +22,7 @@ export interface Reward {
   points: number;
   brand: string;
   logoUrl: string;
+  logoHint?: string;
 }
 
 export type View = "dashboard" | "leaderboard" | "rewards" | "bill-upload" | "profile";

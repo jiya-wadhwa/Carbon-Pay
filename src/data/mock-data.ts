@@ -52,7 +52,7 @@ export const currentUser: User = {
 };
 
 export const leaderboardData: User[] = [
-  { id: 1, name: "Priya Gupta", avatar: "https://placehold.co/100x100.png", points: 4820, rank: 1 },
+  { id: 1, name: "Priya Chaurasia", avatar: "https://placehold.co/100x100.png", points: 4820, rank: 1 },
   { id: 2, name: "Rohan Patel", avatar: "https://placehold.co/100x100.png", points: 4510, rank: 2 },
   { id: 3, name: "Anika Gupta", avatar: "https://placehold.co/100x100.png", points: 3980, rank: 3 },
   { id: 4, name: "Vikram Singh", avatar: "https://placehold.co/100x100.png", points: 2130, rank: 4 },
@@ -68,6 +68,7 @@ export const rewards: Reward[] = [
     points: 2500,
     brand: "Fabindia",
     logoUrl: "https://placehold.co/400x200.png",
+    logoHint: "clothing brand",
   },
   {
     id: "rew_2",
@@ -76,6 +77,7 @@ export const rewards: Reward[] = [
     points: 1200,
     brand: "Sagar Ratna",
     logoUrl: "https://placehold.co/400x200.png",
+    logoHint: "restaurant logo",
   },
   {
     id: "rew_3",
@@ -84,6 +86,7 @@ export const rewards: Reward[] = [
     points: 2000,
     brand: "Khadi India",
     logoUrl: "https://placehold.co/400x200.png",
+    logoHint: "government logo",
   },
     {
     id: "rew_4",
@@ -92,5 +95,6 @@ export const rewards: Reward[] = [
     points: 3000,
     brand: "Haldiram's",
     logoUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACgCAMAAADs/S1bAAAAaVBMVEX/AAD/zDP/yC3/xyf/xiT/wSD/46v/25X/vRv/vBn/uRX/9tz/7s7/6cL/5rj/1or/0n3/uhi/tA3DrgD/vhr/uBT/zTj/xyj/wR3+uAvoqnHoq23lpmbWln3SjG3LgV3+tQDvswDyygrgqABfAAAA4ElEQVR42u3QMQEAAAQAMJVS7y84iQ4g6AABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACABAAgAQAIAEACPgAAEaAAE1gAEYgAAAABJRU5ErkJggg==",
+    logoHint: "food brand",
   },
 ];
