@@ -2,6 +2,7 @@
 
 import { useApp } from "@/hooks/use-app";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import NotificationsPopover from "@/components/notifications-popover";
 
 const viewTitles: { [key: string]: string } = {
   dashboard: "Dashboard",
@@ -21,6 +22,9 @@ export default function AppHeader() {
         <h1 className="font-headline text-2xl font-semibold tracking-tight">
           {viewTitles[activeView]}
         </h1>
+      </div>
+      <div className="flex items-center gap-2">
+        <NotificationsPopover />
       </div>
     </header>
   );
