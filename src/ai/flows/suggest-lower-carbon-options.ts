@@ -35,9 +35,11 @@ const prompt = ai.definePrompt({
   name: 'suggestLowerCarbonOptionsPrompt',
   input: {schema: SuggestLowerCarbonOptionsInputSchema},
   output: {schema: SuggestLowerCarbonOptionsOutputSchema},
-  prompt: `You are an AI assistant designed to suggest lower-carbon alternatives for purchases and trips.
+  prompt: `You are an AI assistant designed to suggest lower-carbon alternatives for purchases and trips, with a focus on an Indian context.
 
   Given the following item description and its estimated carbon footprint, provide a list of alternative, lower-carbon options and the reasoning behind each suggestion.
+  
+  If the item is a food item, especially a meat-based dish like chicken or lamb, prioritize suggesting popular Indian vegetarian alternatives (e.g., Paneer Makhani instead of Butter Chicken, or a dal dish). Explain that vegetarian options generally have a much lower carbon footprint.
 
   Item Description: {{{itemDescription}}}
   Carbon Footprint: {{{carbonFootprint}}}

@@ -80,7 +80,11 @@ export default function TransactionDetails() {
   };
 
   const handleSelectAlternative = () => {
-    const pointsEarned = Math.round((footprint?.carbonFootprintKg || 0) * 0.5 * 10);
+    const carbonKg = footprint?.carbonFootprintKg || 0;
+    // Higher reward for choosing greener food options, which are prompted to be vegetarian.
+    const pointsMultiplier = selectedTransaction?.type === 'food' ? 10 : 5;
+    const pointsEarned = Math.round(carbonKg * pointsMultiplier);
+
     setUserPoints(current => current + pointsEarned);
     toast({
         title: "Eco-Choice Made!",

@@ -27,9 +27,9 @@ export const transactions: Transaction[] = [
   },
   {
     id: "txn_4",
-    name: "Steakhouse Dinner",
-    description: "Dinner for two at a high-end steakhouse.",
-    amount: 20000.0,
+    name: "Butter Chicken Dinner",
+    description: "Dinner for two, featuring butter chicken and naan.",
+    amount: 2500.0,
     date: "2024-07-11",
     type: "food",
   },
