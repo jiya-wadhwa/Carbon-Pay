@@ -9,6 +9,8 @@ import {
   Plane,
   Utensils,
   ChevronRight,
+  Footprints,
+  Leaf,
 } from "lucide-react";
 
 const typeIcons = {
@@ -29,12 +31,14 @@ const motivationalMessages = [
 ];
 
 export default function Dashboard() {
-  const { transactions, setSelectedTransaction } = useApp();
+  const { transactions, setSelectedTransaction, dailySteps } = useApp();
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     setMessage(motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]);
   }, []);
+
+  const carbonSavedKg = (dailySteps / 2000) * 0.404;
 
   return (
     <div className="grid gap-6">
@@ -42,6 +46,35 @@ export default function Dashboard() {
         <h2 className="font-headline text-3xl font-bold tracking-tight">Recent Activity</h2>
         <p className="text-muted-foreground h-5">{message || "Review your recent transactions and their impact."}</p>
       </div>
+
+      <Card className="bg-primary/5 border-primary/20">
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary/10 p-3 rounded-full">
+                <Footprints className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="font-headline text-lg">Today's Steps</CardTitle>
+                <CardDescription>Keep up the great work!</CardDescription>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-3xl font-bold font-mono text-primary">{dailySteps.toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground">steps</p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center text-center p-4 bg-primary/10 rounded-lg">
+            <Leaf className="h-5 w-5 mr-2 text-primary" />
+            <p className="text-sm font-medium text-primary">
+              You've saved an estimated <span className="font-bold">{carbonSavedKg.toFixed(2)} kg of CO₂</span> by walking!
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
         {transactions.map((transaction) => (
           <Card

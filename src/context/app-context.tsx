@@ -12,6 +12,8 @@ interface AppContextType {
   transactions: Transaction[];
   selectedTransaction: Transaction | null;
   setSelectedTransaction: Dispatch<SetStateAction<Transaction | null>>;
+  dailySteps: number;
+  setDailySteps: Dispatch<SetStateAction<number>>;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -21,6 +23,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [userPoints, setUserPoints] = useState(currentUser.points);
   const [transactions] = useState<Transaction[]>(mockTransactions);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [dailySteps, setDailySteps] = useState(8500);
 
   const value = {
     activeView,
@@ -30,6 +33,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     transactions,
     selectedTransaction,
     setSelectedTransaction,
+    dailySteps,
+    setDailySteps,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
