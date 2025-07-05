@@ -17,8 +17,9 @@ import {
   User,
 } from "lucide-react";
 import { useApp } from "@/hooks/use-app";
+import type { View } from "@/lib/types";
 
-const menuItems = [
+const menuItems: { id: View, icon: React.ElementType, label: string }[] = [
   { id: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { id: "leaderboard", icon: Trophy, label: "Leaderboard" },
   { id: "rewards", icon: Gift, label: "Rewards" },
@@ -45,7 +46,6 @@ export function AppSidebar() {
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.id}>
               <SidebarMenuButton
-                // @ts-ignore
                 onClick={() => setActiveView(item.id)}
                 isActive={activeView === item.id}
                 tooltip={item.label}
