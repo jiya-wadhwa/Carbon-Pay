@@ -32,7 +32,7 @@ export default function Rewards() {
                     <Card key={reward.id} className="flex flex-col">
                         <CardHeader className="pb-2">
                             <div className="relative aspect-[2/1] w-full mb-4">
-                               <Image src={reward.logoUrl} alt={reward.brand} layout="fill" objectFit="contain" className="rounded-t-lg" data-ai-hint="logo company" />
+                               <Image src={reward.logoUrl} alt={reward.brand} layout="fill" objectFit="contain" className="rounded-t-lg" data-ai-hint="brand logo" />
                             </div>
                             <CardDescription>{reward.brand}</CardDescription>
                             <CardTitle className="font-headline text-xl">{reward.name}</CardTitle>
