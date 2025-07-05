@@ -46,7 +46,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div className="text-right">
-                        <p className="text-lg font-bold">${transaction.amount.toFixed(2)}</p>
+                        <p className="text-lg font-bold">{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(transaction.amount)}</p>
                     </div>
                 </div>
             </CardHeader>

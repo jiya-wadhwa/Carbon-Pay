@@ -108,7 +108,7 @@ export default function TransactionDetails() {
             <SheetHeader className="px-6 pt-6 text-left">
               <SheetTitle className="font-headline text-2xl">{selectedTransaction.name}</SheetTitle>
               <SheetDescription>
-                ${selectedTransaction.amount.toFixed(2)} on {new Date(selectedTransaction.date).toLocaleDateString()}
+                {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(selectedTransaction.amount)} on {new Date(selectedTransaction.date).toLocaleDateString()}
               </SheetDescription>
             </SheetHeader>
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
