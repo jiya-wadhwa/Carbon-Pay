@@ -98,12 +98,3 @@ export const rewards: Reward[] = [
     logoHint: "food brand",
   },
 ];
-
-export const carbonSavingsHistory: CarbonSaving[] = Array.from({ length: 30 }, (_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() - (29 - i));
-    return {
-        date: date.toISOString().split('T')[0],
-        savedKg: parseFloat((Math.random() * 2 + 0.5).toFixed(2)), // Random saving between 0.5 and 2.5 kg
-    };
-});

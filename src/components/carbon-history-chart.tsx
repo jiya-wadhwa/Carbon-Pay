@@ -2,6 +2,7 @@
 
 import { TrendingUp, Leaf } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { useState, useEffect } from "react";
 
 import {
   Card,
@@ -16,7 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { carbonSavingsHistory } from "@/data/mock-data";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { CarbonSaving } from "@/lib/types";
 
 const chartConfig = {
   savedKg: {
@@ -26,8 +28,48 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+const generateCarbonSavingsHistory = (): CarbonSaving[] => {
+    return Array.from({ length: 30 }, (_, i) => {
+        const date = new Date();
+        date.setDate(date.getDate() - (29 - i));
+        return {
+            date: date.toISOString().split('T')[0],
+            savedKg: parseFloat((Math.random() * 2 + 0.5).toFixed(2)),
+        };
+    });
+};
+
 export default function CarbonHistoryChart() {
-  const totalSaved = carbonSavingsHistory.reduce((acc, curr) => acc + curr.savedKg, 0);
+  const [chartData, setChartData] = useState<CarbonSaving[]>([]);
+  const [totalSaved, setTotalSaved] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const data = generateCarbonSavingsHistory();
+    const total = data.reduce((acc, curr) => acc + curr.savedKg, 0);
+    setChartData(data);
+    setTotalSaved(total);
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 font-headline">
+              <TrendingUp className="h-5 w-5" />
+              <Skeleton className="h-6 w-48" />
+          </CardTitle>
+          <CardDescription>
+            <Skeleton className="h-4 w-full max-w-sm" />
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-[200px] w-full" />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -44,7 +86,7 @@ export default function CarbonHistoryChart() {
         <ChartContainer config={chartConfig} className="h-[200px] w-full">
           <AreaChart
             accessibilityLayer
-            data={carbonSavingsHistory}
+            data={chartData}
             margin={{
               left: 0,
               right: 12,
