@@ -24,4 +24,4 @@ export interface Reward {
   logoUrl: string;
 }
 
-export type View = "dashboard" | "leaderboard" | "rewards";
+export type View = "dashboard" | "leaderboard" | "rewards" | "bill-upload";

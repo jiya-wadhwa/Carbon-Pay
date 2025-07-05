@@ -14,7 +14,7 @@ import {
   Trophy,
   Gift,
   Leaf,
-  LogOut,
+  FileScan,
 } from "lucide-react";
 import { useApp } from "@/hooks/use-app";
 import { Separator } from "@/components/ui/separator";
@@ -26,6 +26,7 @@ const menuItems = [
   { id: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { id: "leaderboard", icon: Trophy, label: "Leaderboard" },
   { id: "rewards", icon: Gift, label: "Rewards" },
+  { id: "bill-upload", icon: FileScan, label: "Upload Bill" },
 ];
 
 export function AppSidebar() {

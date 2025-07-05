@@ -7,6 +7,7 @@ import Dashboard from "@/components/dashboard";
 import Leaderboard from "@/components/leaderboard";
 import Rewards from "@/components/rewards";
 import TransactionDetails from "@/components/transaction-details";
+import BillUpload from "@/components/bill-upload";
 
 function CarbonPayApp() {
   const { activeView } = useApp();
@@ -19,6 +20,8 @@ function CarbonPayApp() {
         return <Leaderboard />;
       case "rewards":
         return <Rewards />;
+      case "bill-upload":
+        return <BillUpload />;
       default:
         return <Dashboard />;
     }

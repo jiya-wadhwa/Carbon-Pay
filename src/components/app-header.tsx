@@ -12,6 +12,7 @@ const viewTitles: { [key: string]: string } = {
   dashboard: "Dashboard",
   leaderboard: "Leaderboard",
   rewards: "Rewards",
+  "bill-upload": "Upload Bill",
 };
 
 export default function AppHeader() {
