@@ -5,20 +5,33 @@ import { useApp } from "@/hooks/use-app";
 import { currentUser } from "@/data/mock-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Leaf, Trophy, Moon, Sun, Settings } from "lucide-react";
+import { Leaf, Trophy, Moon, Sun, Settings, Share2, Gift } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Profile() {
   const { userPoints } = useApp();
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleInvite = () => {
+    // For demonstration, we'll just copy a dummy link and show a toast.
+    // In a real app, you would generate a unique referral link.
+    navigator.clipboard.writeText("https://carbonpay.app/invite?ref=123XYZ");
+    toast({
+      title: "Invite Link Copied!",
+      description: "Share it with friends. You'll get 250 points for each successful referral!",
+    });
+  };
 
   return (
     <div className="grid gap-6">
@@ -94,6 +107,19 @@ export default function Profile() {
               <Skeleton className="h-6 w-11" />
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-xl"><Share2 className="h-5 w-5 text-accent" /> Invite & Earn</CardTitle>
+          <CardDescription>Get <span className="font-bold text-accent">250 bonus points</span> for every friend who joins CarbonPay!</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button className="w-full" onClick={handleInvite}>
+            <Gift className="mr-2 h-4 w-4" />
+            Copy Your Invite Link
+          </Button>
         </CardContent>
       </Card>
     </div>
