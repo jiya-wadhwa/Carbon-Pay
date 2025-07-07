@@ -1,6 +1,6 @@
 # CarbonPay
 
-CarbonPay is a modern web application designed to help users track, analyze, and reduce their carbon footprint. By leveraging AI and cloud technologies, CarbonPay provides actionable insights, visualizations, and rewards to encourage sustainable choices.
+CarbonPay is a modern web application designed to help users track, analyze, and reduce their carbon footprint. By leveraging AI and cloud technologies, CarbonPay provides actionable insights, visualizations, and rewards to encourage sustainable choices
 
 ## Features
 
