@@ -9,7 +9,7 @@ CarbonPay is a modern web application designed to help users track, analyze, and
 - **Daily Facts:** Receive daily sustainability tips and facts.
 - **Leaderboard:** Compete with friends and the community to reduce your carbon impact.
 - **Rewards:** Earn rewards for sustainable actions and milestones.
-- **AI Suggestions:** Get personalized recommendations for lower-carbon alternatives.
+- **AI Suggestions:** Get personalized recommendations for lower-carbon alternatives
 
 ## Tech Stack
 
